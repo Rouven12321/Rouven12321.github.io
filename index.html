@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile App Entwicklungs-Roadmap</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .progress-overview {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            color: white;
+            text-align: center;
+        }
+
+        .progress-bar {
+            background: rgba(255,255,255,0.3);
+            height: 10px;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: white;
+            height: 100%;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .month-container {
+            margin-bottom: 25px;
+            border: 2px solid #e8ecf0;
+            border-radius: 15px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .month-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .month-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .month-header:hover {
+            background: linear-gradient(135deg, #43a3f5 0%, #00e8f5 100%);
+        }
+
+        .toggle-icon {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .month-content {
+            padding: 25px;
+            display: none;
+            background: #fafbfc;
+        }
+
+        .month-content.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .task-list {
+            list-style: none;
+        }
+
+        .task-item {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .task-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .task-item.completed {
+            background: #d5f4e6;
+            border-left-color: #27ae60;
+            opacity: 0.8;
+        }
+
+        .task-checkbox {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #27ae60;
+        }
+
+        .task-text {
+            flex: 1;
+            color: #2c3e50;
+            font-size: 1em;
+        }
+
+        .task-item.completed .task-text {
+            text-decoration: line-through;
+            color: #7f8c8d;
+        }
+
+        .month-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .stat {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        .tips-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .tips-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 15px;
+        }
+
+        .tip {
+            background: rgba(255,255,255,0.7);
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 8px 0;
+            color: #8b4513;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Mobile App Roadmap</h1>
+        <p class="subtitle">6-Monats-Entwicklungsplan für deine Mobile App</p>
+        
+        <div class="progress-overview">
+            <h3>Gesamtfortschritt</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="overallProgress"></div>
+            </div>
+            <span id="progressText">0% abgeschlossen</span>
+        </div>
+
+        <div class="month-container">
+            <div class="month-header" onclick="toggleMonth('month1')">
+                <span>📋 Monat 1: Planung & Konzeption</span>
+                <span class="toggle-icon" id="icon1">▼</span>
+            </div>
+            <div class="month-content" id="month1">
+                <div class="month-stats">
+                    <div class="stat">
+                        <div class="stat-number" id="month1-completed">0</div>
+                        <div class="stat-label">Erledigt</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="month1-total">8</div>
+                        <div class="stat-label">Gesamt</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="month1-progress">0%</div>
+                        <div class="stat-label">Fortschritt</div>
+                    </div>
+                </div>
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Marktanalyse und Konkurrenzanalyse durchführen</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Zielgruppe definieren und User Personas erstellen</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">App-Konzept und Kernfunktionen festlegen</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Technologie-Stack auswählen (React Native, Flutter, etc.)</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Projektbudget und Ressourcen planen</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Wireframes und User Journey erstellen</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Entwicklungsumgebung einrichten</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Projektmanagement-Tools konfigurieren</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="month-container">
+            <div class="month-header" onclick="toggleMonth('month2')">
+                <span>🎨 Monat 2: Design & Prototyping</span>
+                <span class="toggle-icon" id="icon2">▼</span>
+            </div>
+            <div class="month-content" id="month2">
+                <div class="month-stats">
+                    <div class="stat">
+                        <div class="stat-number" id="month2-completed">0</div>
+                        <div class="stat-label">Erledigt</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="month2-total">7</div>
+                        <div class="stat-label">Gesamt</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="month2-progress">0%</div>
+                        <div class="stat-label">Fortschritt</div>
+                    </div>
+                </div>
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">UI/UX Design System entwickeln</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">High-Fidelity Mockups erstellen</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Interaktive Prototypen entwickeln</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Design-Guidelines und Style Guide erstellen</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">User Testing mit Prototypen durchführen</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Design-Feedback einarbeiten und iterieren</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Assets und Icons für Entwicklung vorbereiten</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="month-container">
+            <div class="month-header" onclick="toggleMonth('month3')">
+                <span>⚙️ Monat 3: Backend & Infrastructure</span>
+                <span class="toggle-icon" id="icon3">▼</span>
+            </div>
+            <div class="month-content" id="month3">
+                <div class="month-stats">
+                    <div class="stat">
+                        <div class="stat-number" id="month3-completed">0</div>
+                        <div class="stat-label">Erledigt</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="month3-total">8</div>
+                        <div class="stat-label">Gesamt</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="month3-progress">0%</div>
+                        <div class="stat-label">Fortschritt</div>
+                    </div>
+                </div>
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Datenbank-Schema design und implementieren</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">API-Architektur planen und entwickeln</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">User Authentication System implementieren</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Cloud-Infrastructure konfigurieren</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Push-Notification System einrichten</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Sicherheitsmaßnahmen implementieren</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">API-Dokumentation erstellen</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Backend-Tests schreiben</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="month-container">
+            <div class="month-header" onclick="toggleMonth('month4')">
+                <span>📱 Monat 4: Frontend-Entwicklung</span>
+                <span class="toggle-icon" id="icon4">▼</span>
+            </div>
+            <div class="month-content" id="month4">
+                <div class="month-stats">
+                    <div class="stat">
+                        <div class="stat-number" id="month4-completed">0</div>
+                        <div class="stat-label">Erledigt</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="month4-total">9</div>
+                        <div class="stat-label">Gesamt</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="month4-progress">0%</div>
+                        <div class="stat-label">Fortschritt</div>
+                    </div>
+                </div>
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Grundlegende App-Struktur implementieren</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Navigation und Routing einrichten</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Kernfunktionen entwickeln</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">UI-Komponenten implementieren</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">State Management einrichten</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">API-Integration implementieren</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Offline-Funktionalität entwickeln</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Responsive Design für verschiedene Geräte</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Unit Tests für Frontend schreiben</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="month-container">
+            <div class="month-header" onclick="toggleMonth('month5')">
+                <span>🧪 Monat 5: Testing & Optimierung</span>
+                <span class="toggle-icon" id="icon5">▼</span>
+            </div>
+            <div class="month-content" id="month5">
+                <div class="month-stats">
+                    <div class="stat">
+                        <div class="stat-number" id="month5-completed">0</div>
+                        <div class="stat-label">Erledigt</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="month5-total">8</div>
+                        <div class="stat-label">Gesamt</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="month5-progress">0%</div>
+                        <div class="stat-label">Fortschritt</div>
+                    </div>
+                </div>
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Comprehensive Testing Plan erstellen</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Beta-Version für interne Tests vorbereiten</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">User Acceptance Testing durchführen</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Performance-Optimierung</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Bug-Fixing und Stabilität verbessern</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Accessibility-Features implementieren</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Cross-Platform Testing</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Monitoring und Analytics einrichten</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="month-container">
+            <div class="month-header" onclick="toggleMonth('month6')">
+                <span>🚀 Monat 6: Launch & Deployment</span>
+                <span class="toggle-icon" id="icon6">▼</span>
+            </div>
+            <div class="month-content" id="month6">
+                <div class="month-stats">
+                    <div class="stat">
+                        <div class="stat-number" id="month6-completed">0</div>
+                        <div class="stat-label">Erledigt</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="month6-total">7</div>
+                        <div class="stat-label">Gesamt</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="month6-progress">0%</div>
+                        <div class="stat-label">Fortschritt</div>
+                    </div>
+                </div>
+                <ul class="task-list">
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">App Store Submission vorbereiten</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Marketing-Materialien erstellen</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Launch-Strategie implementieren</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Production Deployment</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">User Support System einrichten</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Post-Launch Monitoring</span>
+                    </li>
+                    <li class="task-item">
+                        <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                        <span class="task-text">Erste Updates und Verbesserungen planen</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tips-section">
+            <div class="tips-title">💡 Wichtige Tipps für den Erfolg</div>
+            <div class="tip">🎯 Fokussiere dich auf die Kernfunktionen - weniger ist oft mehr</div>
+            <div class="tip">👥 Hole regelmäßig Feedback von echten Nutzern ein</div>
+            <div class="tip">🔄 Plane Pufferzeiten für unerwartete Herausforderungen</div>
+            <div class="tip">📊 Verwende Analytics von Anfang an, um datenbasierte Entscheidungen zu treffen</div>
+            <div class="tip">🛡️ Vergiss nicht die Sicherheit und Datenschutz-Compliance</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMonth(monthId) {
+            const content = document.getElementById(monthId);
+            const icon = document.getElementById('icon' + monthId.slice(-1));
+            
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                icon.textContent = '▼';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('active');
+                icon.textContent = '▲';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function updateProgress() {
+            // Update individual month progress
+            for (let i = 1; i <= 6; i++) {
+                const monthContent = document.getElementById(`month${i}`);
+                const checkboxes = monthContent.querySelectorAll('.task-checkbox');
+                const checkedBoxes = monthContent.querySelectorAll('.task-checkbox:checked');
+                
+                const completed = checkedBoxes.length;
+                const total = checkboxes.length;
+                const percentage = Math.round((completed / total) * 100);
+                
+                document.getElementById(`month${i}-completed`).textContent = completed;
+                document.getElementById(`month${i}-progress`).textContent = percentage + '%';
+                
+                // Update task styling
+                checkboxes.forEach(checkbox => {
+                    const taskItem = checkbox.closest('.task-item');
+                    if (checkbox.checked) {
+                        taskItem.classList.add('completed');
+                    } else {
+                        taskItem.classList.remove('completed');
+                    }
+                });
+            }
+            
+            // Update overall progress
+            const allCheckboxes = document.querySelectorAll('.task-checkbox');
+            const allChecked = document.querySelectorAll('.task-checkbox:checked');
+            const overallPercentage = Math.round((allChecked.length / allCheckboxes.length) * 100);
+            
+            document.getElementById('overallProgress').style.width = overallPercentage + '%';
+            document.getElementById('progressText').textContent = overallPercentage + '% abgeschlossen';
+        }
+
+        // Initialize with first month open
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleMonth('month1');
+            updateProgress();
+        });
+    </script>
+</body>
+</html>
